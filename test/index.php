@@ -1,7 +1,7 @@
 <?php
 session_start();
-header('Content-type: text/html; charset=utf-8');
-if (!isset($_SESSION['test']) and !isset($_SESSION['q'])){
+header('Content-Type: text/html; charset=utf-8');
+if (!isset($_SESSION['test']) and !isset($_POST['q'])){
 	$q = 0;
 	$title = 'Пройдите тест';
 }else{

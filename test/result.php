@@ -1,12 +1,11 @@
 <?php
 $result = 0;
 if (isset($_SESSION['test'])){
-	$answers = parse_ini_file('answers.ini');
-	foreach ($_SESSION['text'] as $value){
+	$answers = parse_ini_file("answers.ini");
+	foreach ($_SESSION['test'] as $value){
 		if (array_key_exists($value,$answers)){
 			$result += (int)$answers[$value];
 		}
-		session_destroy();
 	}
 }
 ?>
@@ -17,3 +16,4 @@ if (isset($_SESSION['test'])){
 		</td>
 	</tr>
 </table>
+<?php session_destroy();
