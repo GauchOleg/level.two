@@ -1,6 +1,8 @@
 <?
 	include 'inc/headers.inc.php';
 	include 'inc/cookie.inc.php';
+	define('PATH_LOG','path_log.php');
+	include 'inc/log.inc.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
@@ -50,6 +52,7 @@
 				<li><a href='test/index.php'>Он-лайн тест</a></li>
 				<li><a href='index.php?id=gbook'>Гостевая книга</a></li>
 				<li><a href='eshop/catalog.php'>Магазин</a></li>
+				<li><a href='index.php?id=log'>Журнал посещений</a></li>
 			</ul>
 			<!-- Навигация -->
 		</div>
