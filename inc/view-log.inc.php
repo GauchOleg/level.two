@@ -1,7 +1,8 @@
 <?
 if (file_exists("./log/".PATH_LOG)){
-    while ($text = filesize(PATH_LOG)){
-        $output = fgets($text);
+    $stream = fopen("./log/".PATH_LOG, 'r');
+    while ($string = fgets($stream)){
+        echo '<ol>' . $string . '<br>' . '</ol>';
     }
+    fclose($stream);
 }
-var_dump($output);
