@@ -1,5 +1,6 @@
 <?
 require "secure/session.inc.php";
+require_once '../inc/db.inc.php';
 ?>
 <html>
 <head>
