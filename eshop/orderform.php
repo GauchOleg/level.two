@@ -1,18 +1,22 @@
+<?php
+require_once 'inc/lib.inc.php';
+require_once 'inc/db.inc.php';
+?>
 <html>
 <head>
-	<title>Р¤РѕСЂРјР° РѕС„РѕСЂРјР»РµРЅРёСЏ Р·Р°РєР°Р·Р°</title>
+	<title>Форма оформления заказа</title>
 </head>
 <body>
-	<h1>РћС„РѕСЂРјР»РµРЅРёРµ Р·Р°РєР°Р·Р°</h1>
+	<h1>Оформление заказа</h1>
 	<form action="saveorder.php" method="post">
-		<p>Р—Р°РєР°Р·С‡РёРє: <input type="text" name="name" size="50" />
-		<p>Email Р·Р°РєР°Р·С‡РёРєР°: <input type="text" name="email" 
+		<p>Заказчик: <input type="text" name="name" size="50" />
+		<p>Email заказчика: <input type="text" name="email" 
 					size="50" />
-		<p>РўРµР»РµС„РѕРЅ РґР»СЏ СЃРІСЏР·Рё: <input type="text" name="phone" 
+		<p>Телефон для связи: <input type="text" name="phone" 
 						size="50" />
-		<p>РђРґСЂРµСЃ РґРѕСЃС‚Р°РІРєРё: <input type="text" name="address" 
+		<p>Адрес доставки: <input type="text" name="address" 
 						size="100" />
-		<p><input type="submit" value="Р—Р°РєР°Р·Р°С‚СЊ" />
+		<p><input type="submit" value="Заказать" />
 	</form>
 </body>
 </html>

@@ -1,57 +1,59 @@
 <?php
-	// РїРѕРґРєР»СЋС‡РµРЅРёРµ Р±РёР±Р»РёРѕС‚РµРє
+	// подключение библиотек
 	require "inc/lib.inc.php";
 	require "inc/db.inc.php";
 ?>
 <html>
 <head>
-	<title>РљРѕСЂР·РёРЅР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ</title>
+	<title>Корзина пользователя</title>
 </head>
 <body>
-	<h1>Р’Р°С€Р° РєРѕСЂР·РёРЅР°</h1>
+	<h1>Ваша корзина</h1>
 <?php
 if (empty($basket)){
-	echo 'Р’Р°С€Р° РєР°СЂР·РёРЅР° РїСѓСЃС‚Р°! Р’РµСЂРЅРёС‚РµСЃСЊ РІ РєР°С‚Р°Р»РѕРі';
+	echo 'Ваша карзина пуста! Вернитесь в каталог';
 }else{
-	echo "<a href='catalog.php'>Р’РµСЂРЅСѓС‚СЊСЃСЏ РІ РєР°С‚Р°Р»РѕРі</a>" . '<br>';
+	echo "<a href='catalog.php'>Вернуться в каталог</a>" . '<br>';
 }
 $goods = myBasket();
 ?>
 <table border="1" cellpadding="5" cellspacing="0" width="100%">
 	<tr>
-		<th>N Рї/Рї</th>
-		<th>РќР°Р·РІР°РЅРёРµ <?= $value['title'] ?></th>
-		<th>РђРІС‚РѕСЂ <?= $value['author'] ?></th>
-		<th>Р“РѕРґ РёР·РґР°РЅРёСЏ <?= $value['pubyear'] ?></th>
-		<th>Р¦РµРЅР°, СЂСѓР±. <?= $value['price'] ?></th>
-		<th>РљРѕР»РёС‡РµСЃС‚РІРѕ <?= $value['quantity'] ?></th>
-		<th>РЈРґР°Р»РёС‚СЊ</th>
+		<th>N п/п</th>
+		<th>Название <?= $value['title'] ?></th>
+		<th>Автор <?= $value['author'] ?></th>
+		<th>Год издания <?= $value['pubyear'] ?></th>
+		<th>Цена, руб. <?= $value['price'] ?></th>
+		<th>Количество <?= $value['quantity'] ?></th>
+		<th>Удалить</th>
 	</tr>
 <?php
 $i = 1; $sum = 0;
-foreach ($goods as $item) {
+if (!empty($goods)) {
+	foreach ($goods as $item) {
 
-	?>
-	<tr>
-		<td><?= $i ?></td>
-		<td><?= $item['title'] ?></td>
-		<td><?= $item['author'] ?></td>
-		<td><?= $item['pubyear'] ?></td>
-		<td><?= $item['price'] ?></td>
-		<td><?= $item['quantity'] ?></td>
-		<td><a href="delete_from_basket.php?id=<?= $item['id'] ?>">РЈРґР°Р»РёС‚СЊ</a></td>
-	</tr>
-	<?php
-	$i++;
-	$sum += $item['price'] * $item['quantity'];
+		?>
+		<tr>
+			<td><?= $i ?></td>
+			<td><?= $item['title'] ?></td>
+			<td><?= $item['author'] ?></td>
+			<td><?= $item['pubyear'] ?></td>
+			<td><?= $item['price'] ?></td>
+			<td><?= $item['quantity'] ?></td>
+			<td><a href="delete_from_basket.php?id=<?= $item['id'] ?>">Удалить</a></td>
+		</tr>
+		<?php
+		$i++;
+		$sum += $item['price'] * $item['quantity'];
+	}
 }
 ?>
 </table>
 
-<p>Р’СЃРµРіРѕ С‚РѕРІР°СЂРѕРІ РІ РєРѕСЂР·РёРЅРµ РЅР° СЃСѓРјРјСѓ: <?= $sum?>СЂСѓР±.</p>
+<p>Всего товаров в корзине на сумму: <?= $sum?>руб.</p>
 
 <div align="center">
-	<input type="button" value="РћС„РѕСЂРјРёС‚СЊ Р·Р°РєР°Р·!"
+	<input type="button" value="Оформить заказ!"
                       onClick="location.href='orderform.php'" />
 </div>
 </body>

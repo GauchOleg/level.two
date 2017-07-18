@@ -1,23 +1,23 @@
 <?php
-	// РїРѕРґРєР»СЋС‡РµРЅРёРµ Р±РёР±Р»РёРѕС‚РµРє
+	// подключение библиотек
 	require "inc/lib.inc.php";
 	require "inc/db.inc.php";
 ?>
 <html>
 <head>
-	<title>РљР°С‚Р°Р»РѕРі С‚РѕРІР°СЂРѕРІ</title>
+	<title>Каталог товаров</title>
 </head>
 <body>
-<p>РўРѕРІР°СЂРѕРІ РІ <a href="basket.php">РєРѕСЂР·РёРЅРµ</a>: <?= $count?></p>
+<p>Товаров в <a href="basket.php">корзине</a>: <?= $count?></p>
 <table border="1" cellpadding="5" cellspacing="0" width="100%">
 	<?php
 	$goods = selectAllItems();
 	if (!is_array($goods)){
-		echo 'РџСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РїСЂРё РІС‹РІРѕРґРµ С‚РѕРІР°СЂРѕРІ';
+		echo 'Произошла ошибка при выводе товаров';
 		exit;
 	}
 	if (!$goods){
-		echo 'РќР° СЃРµРіРѕРґРЅСЏ С‚РѕРІР°СЂРѕРІ РЅРµС‚Сѓ';
+		echo 'На сегодня товаров нету';
 		exit;
 	}
 	foreach ($goods as $item){
@@ -28,7 +28,7 @@
 	<th><?= $item['author']?></th>
 	<th><?= $item['pubyear']?></th>
 	<th><?= $item['price']?></th>
-	<th><a href="add2basket.php?id=<?= $item['id']?>">Р’ РєРѕСЂР·РёРЅСѓ</a></th>
+	<th><a href="add2basket.php?id=<?= $item['id']?>">В корзину</a></th>
 </tr>
 	<?php } ?>
 </table>

@@ -31,8 +31,7 @@ function selectAllItems(){
     return $items;
 }
 
-function basketInit(){
-    global $basket, $count;
+function basketInit(){    global $basket, $count;
     if (!isset($_COOKIE['basket'])){
         $basket = array('orderid' => uniqid());
         saveBasket();
@@ -85,6 +84,54 @@ function deleteItemFromBasket($id){
         unset($basket[$id]);
     }
     saveBasket();
+}
+
+function saveOrder($datetime){
+    global $link, $basket;
+    $goods = myBasket();
+    $stmt = mysqli_stmt_init($link);
+    $sql = "INSERT INTO orders (title, author, pubyear, price, quantity, orderid, datetime) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    if (!mysqli_stmt_prepare($stmt,$sql)){
+        return false;
+    }
+    foreach ($goods as $item){
+        mysqli_stmt_bind_param($stmt,"ssiiisi", $item['title'], $item['author'], $item['pubyear'],
+             $item['price'], $item['quantity'], $basket['orderid'],$datetime);
+        mysqli_stmt_execute($stmt);
+    }
+//    mysqli_close($stmt);
+    setcookie('basket',NULL);
+    return true;
+}
+
+function getOrders(){
+    global $link;
+    if (!is_file(ORDERS_LOG)){
+        return false;
+    }
+    $orders = file(ORDERS_LOG);
+    $allorders = array();
+    foreach ($orders as $order){
+        list($name, $email, $phone, $address, $orderid, $dt) = explode('|',$order);
+        $orderinfo = array();
+        $orderinfo['name'] = $name;
+        $orderinfo['email'] = $email;
+        $orderinfo['phone'] = $phone;
+        $orderinfo['address'] = $address;
+        $orderinfo['orderid'] = $orderid;
+        $orderinfo['dt'] = $dt;
+
+        $sql = "SELECT title, author, pubyear, price, quantity FROM orders WHERE orderid = '$orderid'";
+        if (!$result = mysqli_query($link, $sql)){
+            return false;
+        }
+        $items = mysqli_fetch_all($result,MYSQLI_ASSOC);
+        mysqli_free_result($result);
+
+        $orderinfo["goods"] = $items;
+        $allorders[] = $orderinfo;
+    }
+    return $allorders;
 }
 
 
