@@ -8,3 +8,4 @@ define(ORDERS_LOG,'orders.log');
 $basket = array();
 $count = 0;
 $link = mysqli_connect(DB_HOST,DB_LOGIN,DB_PASSWORD,DB_NAME) or die(mysqli_connect_error());
+basketInit();

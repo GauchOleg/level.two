@@ -38,7 +38,7 @@ function basketInit(){
         saveBasket();
     }else{
         $basket = unserialize(base64_decode($_COOKIE['basket']));
-        $count = count($basket) -1;
+        $count = count($basket) - 1;
     }
 }
 
@@ -46,6 +46,45 @@ function saveBasket(){
     global $basket;
     $basket = base64_encode(serialize($basket));
     setcookie('basket',$basket, 0x7FFFFFFF);
+}
+
+function add2Basket($id, $q){
+    global $basket;
+    $basket[$id] = $q;
+    saveBasket();
+}
+
+function myBasket(){
+    global $link,$basket;
+    $goods = array_keys($basket);
+    array_shift($goods);
+    $ids = implode(",",$goods);
+    $sql = "SELECT id, author, title, pubyear, price FROM catalog WHERE id IN ($ids)";
+
+    if (!$result = mysqli_query($link, $sql)){
+        return false;
+    }
+    $items = result2Array($result);
+    mysqli_free_result($result);
+    return $items;
+}
+
+function result2Array($data){
+    global $basket;
+    $arr = array();
+    while ($row = mysqli_fetch_assoc($data)){
+        $row['quantity'] = $basket[$row['id']];
+        $arr[] = $row;
+    }
+    return $arr;
+}
+
+function deleteItemFromBasket($id){
+    global $basket;
+    if (key_exists($id,$basket)){
+        unset($basket[$id]);
+    }
+    saveBasket();
 }
 
 
