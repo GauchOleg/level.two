@@ -2,6 +2,9 @@
 require_once "secure/session.inc.php";
 require_once "secure/secure.inc.php";
 ob_start();
+if (isset($_GET['logout'])){
+	logOut();
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
